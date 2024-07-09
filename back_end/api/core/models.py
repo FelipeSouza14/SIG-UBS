@@ -25,7 +25,7 @@ class Paciente(models.Model):
 
 class Profissional(models.Model):
     nome = models.CharField(max_length=255)
-    especialidade = models.CharField(unique=True)
+    especialidade = models.CharField(max_length=255)
     cpf = models.CharField(max_length=11, unique=True)
     numTelefone = models.CharField(max_length=11, unique=True)
     horaAtendimento = models.CharField(max_length=50)
