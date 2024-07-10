@@ -5,18 +5,18 @@ from .models import Administrador, Paciente, Profissional, Vacinacao, Consulta, 
 class AdministradorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Administrador
-        fields = ['id', 'cnpj', 'senha', 'status']
+        fields = ['cnpj', 'senha', 'status']
 
 
 class PacienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paciente
-        fields = ['id', 'nome', 'cpf', 'numTelefone', 'dataNascimento', 'senha', 'status']
+        fields = ['nome', 'cpf', 'numTelefone', 'dataNascimento', 'senha', 'status']
 
 class ProfissionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profissional
-        fields = ['id', 'nome', 'especialidade', 'cpf', 'numTelefone', 'horaAtendimento', 'status']
+        fields = ['nome', 'especialidade', 'cpf', 'numTelefone', 'horaAtendimento', 'status']
 
 class VacinacaoSerializer(serializers.ModelSerializer):
     class Meta:

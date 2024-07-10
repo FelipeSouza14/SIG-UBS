@@ -4,7 +4,7 @@ from django.core.validators import MinLengthValidator
 
 # Modelos do Banco de Dados
 class Administrador(models.Model):
-    cnpj = models.CharField(max_length=14, unique=True)
+    cnpj = models.CharField(max_length=14, primary_key=True, unique=True)
     senha = models.CharField(max_length=50, validators=[MinLengthValidator(8)])
     status = models.BooleanField(default=True)
 
@@ -14,7 +14,7 @@ class Administrador(models.Model):
 
 class Paciente(models.Model):
     nome = models.CharField(max_length=255)
-    cpf = models.CharField(max_length=11, unique=True)
+    cpf = models.CharField(max_length=11, primary_key=True, unique=True)
     numTelefone = models.CharField(max_length=11, unique=True)
     dataNascimento = models.DateField(max_length=15)
     senha = models.CharField(max_length=50, validators=[MinLengthValidator(8)])
@@ -27,7 +27,7 @@ class Paciente(models.Model):
 class Profissional(models.Model):
     nome = models.CharField(max_length=255)
     especialidade = models.CharField(max_length=255)
-    cpf = models.CharField(max_length=11, unique=True)
+    cpf = models.CharField(max_length=11, primary_key=True, unique=True)
     numTelefone = models.CharField(max_length=11, unique=True)
     horaAtendimento = models.CharField(max_length=50)
     status = models.BooleanField(default=True)
