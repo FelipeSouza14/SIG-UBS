@@ -6,6 +6,7 @@ from django.core.validators import MinLengthValidator
 class Administrador(models.Model):
     cnpj = models.CharField(max_length=14, unique=True)
     senha = models.CharField(max_length=50, validators=[MinLengthValidator(8)])
+    status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.cnpj
@@ -17,6 +18,7 @@ class Paciente(models.Model):
     numTelefone = models.CharField(max_length=11, unique=True)
     dataNascimento = models.DateField(max_length=15)
     senha = models.CharField(max_length=50, validators=[MinLengthValidator(8)])
+    status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.cpf
@@ -28,6 +30,7 @@ class Profissional(models.Model):
     cpf = models.CharField(max_length=11, unique=True)
     numTelefone = models.CharField(max_length=11, unique=True)
     horaAtendimento = models.CharField(max_length=50)
+    status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.cpf
@@ -37,6 +40,7 @@ class Vacinacao(models.Model):
     data = models.DateField(max_length=15)
     horario = models.CharField(max_length=15)
     publicoAlvo = models.CharField(max_length=255)
+    status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nomeVacina
@@ -47,6 +51,7 @@ class Consulta(models.Model):
     data = models.DateField(max_length=15)
     horario = models.CharField(max_length=15)
     tipoAtendimento = models.CharField(max_length=50)
+    status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nomePaciente
@@ -55,6 +60,7 @@ class Avisos(models.Model):
     titulo = models.CharField(max_length=255)
     descricao = models.CharField(max_length=255)
     dataEnvio = models.DateField(max_length=15)
+    status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.titulo

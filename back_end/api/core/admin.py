@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Administrador, Paciente, Profissional, Consulta, Notificacao
+from .models import Administrador, Paciente, Profissional, Vacinacao, Consulta, Avisos
 
 # Register your models here.
 admin.site.register(Administrador)
 admin.site.register(Paciente)
 admin.site.register(Profissional)
+admin.site.register(Vacinacao)
 admin.site.register(Consulta)
-admin.site.register(Notificacao)
+admin.site.register(Avisos)
