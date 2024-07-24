@@ -107,8 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 90, vertical: 18),
+                            fixedSize: const Size(300, 40),
                             textStyle: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -129,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: InkWell(
                             onTap: () {
                               Navigator.pushNamed(context,
-                                  '/signup'); // Navega para a página de cadastro
+                                  '/register'); 
                             },
                             child: const Text(
                               'Cadastre-se agora!',
