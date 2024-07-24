@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                         const TextField(
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
-                            labelText: 'Digite seu e-mail',
+                            labelText: 'Nome e Sobrenome',
                             labelStyle: TextStyle(
                               color: Colors.white,
                             ),
@@ -82,7 +82,49 @@ class _LoginPageState extends State<LoginPage> {
                         const TextField(
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
-                            labelText: 'Digite sua senha',
+                            labelText: 'E-mail',
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                                width: 2.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 25),
+                        const TextField(
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            labelText: 'CPF - apenas números',
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                                width: 2.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 25),
+                        const TextField(
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            labelText: 'Senha',
                             labelStyle: TextStyle(
                               color: Colors.white,
                             ),
@@ -116,29 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: const Text('Entrar'),
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        const Text('Não possui uma conta?',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 16)),
-                        Center(
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(context,
-                                  '/register'); 
-                            },
-                            child: const Text(
-                              'Cadastre-se agora!',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                          child: const Text('Criar conta'),
                         ),
                       ],
                     ),
