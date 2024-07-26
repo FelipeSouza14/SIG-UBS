@@ -3,6 +3,19 @@ from rest_framework import viewsets
 from .models import Administrador, Paciente, Profissional, Vacinacao, Consulta, Avisos
 from .serializers import AdministradorSerializer, PacienteSerializer, ProfissionalSerializer, VacinacaoSerializer, ConsultaSerializer, AvisosSerializer
 
+# Viwes usadas para a autenticação de usuário
+from django.http import JsonResponse
+
+
+def getRoutes(request):
+    routes = [
+        '/api/token'
+        'api/token/refresh'
+    ]
+
+    return JsonResponse(routes, safe=False)
+
+
 # Create your views here.
 class AdministradorViewSet(viewsets.ModelViewSet):
     queryset = Administrador.objects.all()
