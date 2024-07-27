@@ -115,3 +115,26 @@ class _MyNewNavBarState extends State<MyNewNavBar> {
     );
   }
 }
+
+
+// import 'dart:convert';
+// import 'package:http/http.dart' as http;
+// import 'package:jwt_decoder/jwt_decoder.dart';
+
+// Future<void> login(String username, String password, Function funSetUser, Function funcSetAuth) async {
+//   final url = Uri.parse('http://127.0.0.1:8000/api/token/');
+
+//   final response = await http.post(
+//     url,
+//     headers: {'Content-Type': 'application/json'},
+//     body: jsonEncode({'email': username, 'password': password}), // Se necessário, altere para {'username': username, 'password': password}
+//   );
+
+//   if (response.statusCode == 200) {
+//     final data = jsonDecode(response.body);
+//     funcSetAuth(data['refresh']);
+//     funSetUser(JwtDecoder.decode(data['access']));
+//   } else {
+//     print('deu pau');
+//   }
+// }
