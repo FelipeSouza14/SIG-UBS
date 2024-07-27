@@ -17,7 +17,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
 
         # Add custom claims
-        token['nome'] = user.nome # Criptografa no token o nome do usuário
+        token['username'] = user.username # Criptografa no token o nome do usuário
 
         return token
     
