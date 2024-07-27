@@ -6,6 +6,7 @@ from django.core.validators import MinLengthValidator
 class Administrador(models.Model):
     cnpj = models.CharField(max_length=14, primary_key=True, unique=True)
     senha = models.CharField(max_length=50, validators=[MinLengthValidator(8)])
+    statusAdm = models.BooleanField(default=True)
     status = models.BooleanField(default=True)
 
     def __str__(self):
@@ -18,6 +19,7 @@ class Paciente(models.Model):
     numTelefone = models.CharField(max_length=11, unique=True)
     dataNascimento = models.DateField(max_length=15)
     senha = models.CharField(max_length=50, validators=[MinLengthValidator(8)])
+    statusPaciente = models.BooleanField(default=True)
     status = models.BooleanField(default=True)
 
     def __str__(self):
