@@ -4,16 +4,18 @@ from .models import Administrador, Paciente, Profissional, Vacinacao, Consulta, 
 from .serializers import AdministradorSerializer, PacienteSerializer, ProfissionalSerializer, VacinacaoSerializer, ConsultaSerializer, AvisosSerializer
 
 # Viwes usadas para a autenticação de usuário
-from django.http import JsonResponse
+# from django.http import JsonResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
-
+@api_view(['GET'])
 def getRoutes(request):
     routes = [
-        '/api/token'
+        '/api/token',
         'api/token/refresh'
     ]
 
-    return JsonResponse(routes, safe=False)
+    return Response(routes)
 
 
 # Create your views here.
