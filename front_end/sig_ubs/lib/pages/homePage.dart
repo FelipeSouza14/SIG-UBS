@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../context/authProvider.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -11,23 +13,50 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    super.initState();
+    // Adicionar o listener
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      authProvider.addListener(() {
+        if (authProvider.authToken.isEmpty) {
+          Navigator.pushReplacementNamed(context, '/menu');
+        }
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 0, 148, 219),
-          title: Text(widget.title),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 0, 148, 219),
+        title: Text(widget.title),
+        actions: [
+          if (authProvider.user.isNotEmpty)
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                authProvider.logout();
+              },
+            ),
+          if (authProvider.user.isNotEmpty)
+            Text('Bem-vindo, ${authProvider.user['username']}')
+        ],
+      ),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Conteúdo da página',
+            ),
+          ],
         ),
-        body: const Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Conteúdo da página',
-              ),
-            ],
-          ),
-        ),
-        bottomNavigationBar: const MyNewNavBar());
+      ),
+      bottomNavigationBar: const MyNewNavBar(),
+    );
   }
 }
 
@@ -115,26 +144,3 @@ class _MyNewNavBarState extends State<MyNewNavBar> {
     );
   }
 }
-
-
-// import 'dart:convert';
-// import 'package:http/http.dart' as http;
-// import 'package:jwt_decoder/jwt_decoder.dart';
-
-// Future<void> login(String username, String password, Function funSetUser, Function funcSetAuth) async {
-//   final url = Uri.parse('http://127.0.0.1:8000/api/token/');
-
-//   final response = await http.post(
-//     url,
-//     headers: {'Content-Type': 'application/json'},
-//     body: jsonEncode({'email': username, 'password': password}), // Se necessário, altere para {'username': username, 'password': password}
-//   );
-
-//   if (response.statusCode == 200) {
-//     final data = jsonDecode(response.body);
-//     funcSetAuth(data['refresh']);
-//     funSetUser(JwtDecoder.decode(data['access']));
-//   } else {
-//     print('deu pau');
-//   }
-// }

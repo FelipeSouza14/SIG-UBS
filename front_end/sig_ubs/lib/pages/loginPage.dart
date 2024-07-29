@@ -12,6 +12,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _cpfValue = TextEditingController();
   final TextEditingController _passwordValue = TextEditingController();
+  
 
   @override
 Widget build(BuildContext context) {
@@ -121,7 +122,7 @@ Widget build(BuildContext context) {
                                             ElevatedButton(
                                                 onPressed: () {
                                                     if (_formKey.currentState?.validate() ?? false) {
-                                                        authLogin(_cpfValue.text, _passwordValue.text);
+                                                        AuthService(context).authLogin(_cpfValue.text, _passwordValue.text);
                                                     }
                                                 },
                                                 style: ElevatedButton.styleFrom(
