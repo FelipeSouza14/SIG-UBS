@@ -1,17 +1,17 @@
 from rest_framework import serializers
-from .models import Administrador, Paciente, Profissional, Vacinacao, Consulta, Avisos
+from .models import Paciente, Profissional, Vacinacao, Consulta, Avisos
 
 # Serializers define the API representation.
-class AdministradorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Administrador
-        fields = ['cnpj', 'senha', 'status']
+# class AdministradorSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Administrador
+#         fields = ['cnpj', 'senha', 'status']
 
 
 class PacienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paciente
-        fields = ['nome', 'cpf', 'numTelefone', 'dataNascimento', 'senha', 'senha2', 'statusPaciente', 'status']
+        fields = ['nome', 'cpf', 'numTelefone', 'dataNascimento', 'senha', 'statusPaciente', 'status']
         extra_kwargs = {'senha': {'write_only': True}}
 
 class ProfissionalSerializer(serializers.ModelSerializer):

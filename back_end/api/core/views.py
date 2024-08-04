@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Administrador, Paciente, Profissional, Vacinacao, Consulta, Avisos
-from .serializers import AdministradorSerializer, PacienteSerializer, ProfissionalSerializer, VacinacaoSerializer, ConsultaSerializer, AvisosSerializer
+from .models import Paciente, Profissional, Vacinacao, Consulta, Avisos
+from .serializers import PacienteSerializer, ProfissionalSerializer, VacinacaoSerializer, ConsultaSerializer, AvisosSerializer
 
 # Viwes usadas para a autenticação de usuário
 # from django.http import JsonResponse
@@ -37,9 +37,9 @@ def getRoutes(request):
 
 
 # Create your views here.
-class AdministradorViewSet(viewsets.ModelViewSet):
-    queryset = Administrador.objects.all()
-    serializer_class = AdministradorSerializer
+# class AdministradorViewSet(viewsets.ModelViewSet):
+#     queryset = Administrador.objects.all()
+#     serializer_class = AdministradorSerializer
 
 class PacienteViewSet(viewsets.ModelViewSet):
     queryset = Paciente.objects.all()
