@@ -10,6 +10,7 @@ class Paciente(AbstractUser):
     dataNascimento = models.DateField(max_length=15)
     senha = models.CharField(max_length=50, validators=[MinLengthValidator(8)])
     statusPaciente = models.BooleanField(default=True)
+    statusAdm = models.BooleanField(default=False)
     status = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'cpf'
@@ -21,14 +22,13 @@ class Paciente(AbstractUser):
 
 
 # Modelos do Banco de Dados
-class Administrador(models.Model):
-    cnpj = models.CharField(max_length=14, primary_key=True, unique=True)
-    senha = models.CharField(max_length=50, validators=[MinLengthValidator(8)])
-    statusAdm = models.BooleanField(default=True)
-    status = models.BooleanField(default=True)
+# class Administrador(models.Model):
+#     cnpj = models.CharField(max_length=14, primary_key=True, unique=True)
+#     senha = models.CharField(max_length=50, validators=[MinLengthValidator(8)])
+#     status = models.BooleanField(default=True)
 
-    def __str__(self):
-        return self.cnpj
+#     def __str__(self):
+#         return self.cnpj
 
 
 class Profissional(models.Model):
