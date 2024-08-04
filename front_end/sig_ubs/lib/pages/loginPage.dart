@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../context/authContext.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,6 +10,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _cpfValue = TextEditingController();
+  final TextEditingController _passwordValue = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +61,11 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         const SizedBox(height: 25),
-                        const TextField(
+                        TextFormField(
+                          controller: _cpfValue,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
-                            labelText: 'Digite seu e-mail',
+                            labelText: 'Digite seu CPF',
                             labelStyle: TextStyle(
                               color: Colors.white,
                             ),
@@ -77,9 +81,16 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Digite seu CPF';
+                            }
+                            return null;
+                          },
                         ),
                         const SizedBox(height: 25),
-                        const TextField(
+                        TextFormField(
+                          controller: _passwordValue,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             labelText: 'Digite sua senha',
@@ -99,11 +110,20 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           obscureText: true,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Digite sua senha';
+                            }
+                            return null;
+                          },
                         ),
                         const SizedBox(height: 40),
                         ElevatedButton(
                           onPressed: () {
-                            // Implement your login logic here
+                            if (_formKey.currentState?.validate() ?? false) {
+                              AuthService(context).authLogin(
+                                  _cpfValue.text, _passwordValue.text);
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
@@ -127,8 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                         Center(
                           child: InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context,
-                                  '/register'); 
+                              Navigator.pushNamed(context, '/register');
                             },
                             child: const Text(
                               'Cadastre-se agora!',
@@ -152,10 +171,10 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Image.asset(
-                    '../../assets/logo.png', // Caminho para sua imagem
-                    height: 50, // Ajuste o tamanho conforme necessário
+                    '../../assets/logo.png',
+                    height: 50,
                   ),
-                  const SizedBox(width: 10), // Espaço entre a imagem e o texto
+                  const SizedBox(width: 10),
                   const Text(
                     'SIG-UBS',
                     style: TextStyle(

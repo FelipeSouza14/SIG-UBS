@@ -1,31 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:sig_ubs/pages/loginPage.dart';
-import 'package:sig_ubs/pages/menuPage.dart';
-import 'package:sig_ubs/pages/registerPage.dart';
-import 'package:sig_ubs/pages/homePage.dart';
+import 'package:provider/provider.dart';
+import 'context/authProvider.dart';
+import 'pages/loginPage.dart';
+import 'pages/menuPage.dart';
+import 'pages/registerPage.dart';
+import 'pages/homePage.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(
+      ChangeNotifierProvider(
+        create: (context) => AuthProvider(),
+        child: const MyApp(),
+      ),
+    );
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    var name = authProvider.user['username'];
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'SIG UBS',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 0, 148, 219)),
+          seedColor: const Color.fromARGB(255, 0, 148, 219),
+        ),
         useMaterial3: true,
       ),
-      home: const MenuPage(),
+      home: _buildHome(authProvider),
       routes: {
-        '/login': (context) => const LoginPage(), 
-        '/register': (context) => const RegisterPage(), 
-        '/home': (context) => const HomePage(title: 'Página Principal'), 
+        '/menu': (context) => const MenuPage(),
+        '/home': (context) => const HomePage(title: 'Bem-vindo'),
+        '/login': (context) => const LoginPage(),
+        '/register': (context) => const RegisterPage(),
       },
     );
   }
+
+  Widget _buildHome(AuthProvider authProvider) {
+    if (authProvider.authToken != null && authProvider.authToken.isNotEmpty) {
+      return const HomePage(title: 'Bem-vindo');
+    } else {
+      return const MenuPage();
+    }
+  }
 }
+
 

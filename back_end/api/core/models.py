@@ -1,27 +1,34 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinLengthValidator
+
+# Modelo para atutenticação de usuário(Paciente)
+class Paciente(AbstractUser):
+    nome = models.CharField(max_length=255)
+    cpf = models.CharField(max_length=11, primary_key=True, unique=True)
+    numTelefone = models.CharField(max_length=11, unique=True)
+    dataNascimento = models.DateField(max_length=15)
+    senha = models.CharField(max_length=50, validators=[MinLengthValidator(8)])
+    statusPaciente = models.BooleanField(default=True)
+    status = models.BooleanField(default=True)
+
+    USERNAME_FIELD = 'cpf'
+    REQUIRED_FIELDS = ['nome']
+
+
+    def __str__(self):
+        return self.cpf
 
 
 # Modelos do Banco de Dados
 class Administrador(models.Model):
     cnpj = models.CharField(max_length=14, primary_key=True, unique=True)
     senha = models.CharField(max_length=50, validators=[MinLengthValidator(8)])
+    statusAdm = models.BooleanField(default=True)
     status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.cnpj
-
-
-class Paciente(models.Model):
-    nome = models.CharField(max_length=255)
-    cpf = models.CharField(max_length=11, primary_key=True, unique=True)
-    numTelefone = models.CharField(max_length=11, unique=True)
-    dataNascimento = models.DateField(max_length=15)
-    senha = models.CharField(max_length=50, validators=[MinLengthValidator(8)])
-    status = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.cpf
 
 
 class Profissional(models.Model):
