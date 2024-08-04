@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           if (authProvider.user.isNotEmpty)
-            Text('Bem-vindo, ${authProvider.user['username']}')
+            Text('Bem-vindo, ${authProvider.user['nome']}')
         ],
       ),
       body: const Center(
