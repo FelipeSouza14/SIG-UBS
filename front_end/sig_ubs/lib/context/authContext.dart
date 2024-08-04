@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -8,9 +9,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   final BuildContext context;
+  Timer? _timer;
 
-  AuthService(this.context);
+  AuthService(this.context) {
+    startTokenUpdate();
+  }
 
+  // Essa função garente que o updateToken() seja chamada a cada 4 minutos 
+  void startTokenUpdate() {
+    const duration = Duration(minutes: 4);
+    _timer = Timer.periodic(duration, (timer) {
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      if (authProvider.authToken != null) {
+        updateToken();
+      }
+    });
+  }
+
+  void dispose() {
+    _timer?.cancel();
+  }
+
+  // Função de login -> Essa função faz o login e salva os tokens de autenticação
   void authLogin(String cpf, String password) async {
     try {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -50,6 +70,7 @@ class AuthService {
     }
   }
 
+  // Função de atualizar token -> Essa função atualiza o token para que o usuário não perca o acesso ao sistema
   void updateToken() async {
     try {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -73,7 +94,6 @@ class AuthService {
 
         String jsonString = jsonEncode(data);
         await localStorage.setString('authTokens', jsonString);
-
       } else {
         authProvider.logout;
         print('Erro na requisição. Status code: ${response.statusCode}');

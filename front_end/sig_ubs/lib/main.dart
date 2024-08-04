@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
   }
 
   Widget _buildHome(AuthProvider authProvider) {
-    if (authProvider.user != null && authProvider.user.isNotEmpty) {
+    if (authProvider.authToken != null && authProvider.authToken.isNotEmpty) {
       return const HomePage(title: 'Bem-vindo');
     } else {
       return const MenuPage();
