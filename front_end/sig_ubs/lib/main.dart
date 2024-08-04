@@ -7,11 +7,11 @@ import 'pages/registerPage.dart';
 import 'pages/homePage.dart';
 
 void main() => runApp(
-  ChangeNotifierProvider(
-    create: (context) => AuthProvider(),
-    child: const MyApp(),
-  ),
-);
+      ChangeNotifierProvider(
+        create: (context) => AuthProvider(),
+        child: const MyApp(),
+      ),
+    );
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -30,10 +30,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      // home: authProvider.user.isEmpty
-      //     ? const MenuPage()
-      //     : HomePage(title: 'Bem-vindo, ${authProvider.user}'),
-      initialRoute: authProvider.authToken.isEmpty ? '/menu' : '/home',
+      home: _buildHome(authProvider),
       routes: {
         '/menu': (context) => const MenuPage(),
         '/home': (context) => const HomePage(title: 'Bem-vindo'),
@@ -42,4 +39,14 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+
+  Widget _buildHome(AuthProvider authProvider) {
+    if (authProvider.user != null && authProvider.user.isNotEmpty) {
+      return const HomePage(title: 'Bem-vindo');
+    } else {
+      return const MenuPage();
+    }
+  }
 }
+
+

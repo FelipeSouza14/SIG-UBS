@@ -13,6 +13,8 @@ class AuthService {
 
   void authLogin(String cpf, String password) async {
     try {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+
       final url = Uri.parse('http://127.0.0.1:8000/api/token/');
       final response = await http.post(
         url,
@@ -30,7 +32,6 @@ class AuthService {
         final decodedToken = JwtDecoder.decode(data['access']);
         authProvider.setUser(decodedToken);
 
-        final localStorage = await SharedPreferences.getInstance();
         String jsonString = jsonEncode(data);
         await localStorage.setString('authTokens', jsonString);
 
@@ -51,6 +52,8 @@ class AuthService {
 
   void updateToken() async {
     try {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final url = Uri.parse('http://127.0.0.1:8000/api/token/refresh/');
       final response = await http.post(
@@ -68,7 +71,6 @@ class AuthService {
         final decodedToken = JwtDecoder.decode(data['access']);
         authProvider.setUser(decodedToken);
 
-        final localStorage = await SharedPreferences.getInstance();
         String jsonString = jsonEncode(data);
         await localStorage.setString('authTokens', jsonString);
 
@@ -78,7 +80,7 @@ class AuthService {
         print('Resposta: ${response.body}');
       }
     } catch (error) {
-      print("Falha na requisição do usuário: $error");
+      print("Falha na requisição do updateToken: $error");
     }
   }
 }
