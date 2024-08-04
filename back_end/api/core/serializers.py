@@ -11,7 +11,8 @@ class AdministradorSerializer(serializers.ModelSerializer):
 class PacienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paciente
-        fields = ['nome', 'cpf', 'numTelefone', 'dataNascimento', 'senha', 'status']
+        fields = ['nome', 'cpf', 'numTelefone', 'dataNascimento', 'senha', 'senha2', 'statusPaciente', 'status']
+        extra_kwargs = {'senha': {'write_only': True}}
 
 class ProfissionalSerializer(serializers.ModelSerializer):
     class Meta:
