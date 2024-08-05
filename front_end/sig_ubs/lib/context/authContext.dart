@@ -39,7 +39,7 @@ class AuthService {
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'username': cpf, 'password': password}),
+        body: jsonEncode({'cpf': cpf, 'password': password}),
       );
 
       if (response.statusCode == 200) {
