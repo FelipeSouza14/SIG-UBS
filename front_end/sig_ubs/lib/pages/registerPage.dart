@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../context/createAccount.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -9,6 +10,12 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nomeValue = TextEditingController();
+  final TextEditingController _cpfValue = TextEditingController();
+  final TextEditingController _telefoneValue = TextEditingController();
+  final TextEditingController _nascimentoValue = TextEditingController();
+  final TextEditingController _senhaValue = TextEditingController();
+  final TextEditingController _senhaDoisValue = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +65,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                         const SizedBox(height: 25),
-                        const TextField(
+                        TextFormField(
+                          controller: _nomeValue,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             labelText: 'Nome e Sobrenome',
@@ -77,12 +85,19 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             ),
                           ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, insira seu nome e sobrenome';
+                            }
+                            return null;
+                          },
                         ),
                         const SizedBox(height: 25),
-                        const TextField(
+                        TextFormField(
+                          controller: _cpfValue,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
-                            labelText: 'E-mail',
+                            labelText: 'CPF',
                             labelStyle: TextStyle(
                               color: Colors.white,
                             ),
@@ -98,12 +113,19 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             ),
                           ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, insira seu cpf';
+                            }
+                            return null;
+                          },
                         ),
                         const SizedBox(height: 25),
-                        const TextField(
+                        TextFormField(
+                          controller: _telefoneValue,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
-                            labelText: 'CPF - apenas números',
+                            labelText: 'Telefone',
                             labelStyle: TextStyle(
                               color: Colors.white,
                             ),
@@ -119,9 +141,44 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             ),
                           ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, insira seu número de telefone';
+                            }
+                            return null;
+                          },
                         ),
                         const SizedBox(height: 25),
-                        const TextField(
+                        TextFormField(
+                          controller: _nascimentoValue,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            labelText: 'Data de Nascimento',
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                                width: 2.0,
+                              ),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, insira sua data de nascimento';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 25),
+                        TextFormField(
+                          controller: _senhaValue,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             labelText: 'Senha',
@@ -140,12 +197,60 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             ),
                           ),
-                          obscureText: true,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, insira sua senha';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 25),
+                        TextFormField(
+                          controller: _senhaDoisValue,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            labelText: 'Confirme sua senha',
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                                width: 2.0,
+                              ),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, insira sua senha novamente';
+                            }
+                            // else if (value != _senhaValue) {
+                            //   return 'Senhas diferentes! Insira a senha novamente';
+                            // }
+                            return null;
+                          },
                         ),
                         const SizedBox(height: 40),
                         ElevatedButton(
                           onPressed: () {
-                            // Implement your login logic here
+                            if (_formKey.currentState?.validate() ?? false) {
+                              if (_senhaValue.text == _senhaDoisValue.text) {
+                                createAccount(
+                                    context,
+                                    _nomeValue.text,
+                                    _cpfValue.text,
+                                    _telefoneValue.text,
+                                    _nascimentoValue.text,
+                                    _senhaValue.text);
+                              }
+
+                              // funcao de criar a conta
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
@@ -158,7 +263,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: const Text('Criar conta'),
+                          child: const Text('Cadastrar'),
                         ),
                       ],
                     ),

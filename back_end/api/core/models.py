@@ -4,17 +4,17 @@ from django.core.validators import MinLengthValidator
 
 # Modelo para atutenticação de usuário(Paciente)
 class CustomUser(AbstractUser): # Antiga Tabela Pacientes
-    nome = models.CharField(max_length=255)
+    username = models.CharField(max_length=255)
     cpf = models.CharField(max_length=11, primary_key=True, unique=True)
     numTelefone = models.CharField(max_length=11, unique=True)
-    dataNascimento = models.DateField(max_length=15)
+    dataNascimento = models.CharField(max_length=15)
     password = models.CharField(max_length=50, validators=[MinLengthValidator(8)])
     isUser = models.BooleanField(default=True)
     isAdm = models.BooleanField(default=False)
     status = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'cpf'
-    REQUIRED_FIELDS = ['nome']
+    REQUIRED_FIELDS = ['username']
 
 
     def __str__(self):

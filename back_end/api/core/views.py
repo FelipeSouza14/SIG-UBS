@@ -20,6 +20,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Add custom claims
         token['cpf'] = user.cpf # Criptografa no token o nome do usuário
+        token['username'] = user.username
 
         return token
     

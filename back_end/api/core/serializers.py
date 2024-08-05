@@ -11,17 +11,14 @@ from .models import CustomUser, Profissional, Vacinacao, Consulta, Avisos
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['nome', 'cpf', 'numTelefone', 'dataNascimento', 'password', 'isUser', 'isAdm', 'status']
+        fields = ['username', 'cpf', 'numTelefone', 'dataNascimento', 'password', 'isUser', 'isAdm', 'status']
 
     def create(self, validated_data):
         user = CustomUser.objects.create(
-            nome=validated_data['nome'],
+            username=validated_data['username'],
             cpf=validated_data['cpf'],
             numTelefone=validated_data['numTelefone'],
             dataNascimento=validated_data['dataNascimento'],
-            isUser=validated_data['isUser'],
-            isAdm=validated_data['isAdm'],
-            status=validated_data['status'],
         )
         user.set_password(validated_data['password'])
         user.save()
