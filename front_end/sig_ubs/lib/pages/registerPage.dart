@@ -64,11 +64,11 @@ class _RegisterPageState extends State<RegisterPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 20),
                         TextFormField(
                           controller: _nomeValue,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
+                          style: const TextStyle(color: Colors.white),
+                          decoration: const InputDecoration(
                             labelText: 'Nome e Sobrenome',
                             labelStyle: TextStyle(
                               color: Colors.white,
@@ -92,12 +92,12 @@ class _RegisterPageState extends State<RegisterPage> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 20),
                         TextFormField(
                           controller: _cpfValue,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                            labelText: 'CPF',
+                          style: const TextStyle(color: Colors.white),
+                          decoration: const InputDecoration(
+                            labelText: 'CPF - apenas números',
                             labelStyle: TextStyle(
                               color: Colors.white,
                             ),
@@ -120,12 +120,12 @@ class _RegisterPageState extends State<RegisterPage> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 20),
                         TextFormField(
                           controller: _telefoneValue,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                            labelText: 'Telefone',
+                          style: const TextStyle(color: Colors.white),
+                          decoration: const InputDecoration(
+                            labelText: 'Telefone - apenas números',
                             labelStyle: TextStyle(
                               color: Colors.white,
                             ),
@@ -148,11 +148,11 @@ class _RegisterPageState extends State<RegisterPage> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 20),
                         TextFormField(
                           controller: _nascimentoValue,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
+                          style: const TextStyle(color: Colors.white),
+                          decoration: const InputDecoration(
                             labelText: 'Data de Nascimento',
                             labelStyle: TextStyle(
                               color: Colors.white,
@@ -176,11 +176,11 @@ class _RegisterPageState extends State<RegisterPage> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 20),
                         TextFormField(
                           controller: _senhaValue,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
+                          style: const TextStyle(color: Colors.white),
+                          decoration: const InputDecoration(
                             labelText: 'Senha',
                             labelStyle: TextStyle(
                               color: Colors.white,
@@ -197,6 +197,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             ),
                           ),
+                          obscureText: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Por favor, insira sua senha';
@@ -204,11 +205,11 @@ class _RegisterPageState extends State<RegisterPage> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 20),
                         TextFormField(
                           controller: _senhaDoisValue,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
+                          style: const TextStyle(color: Colors.white),
+                          decoration: const InputDecoration(
                             labelText: 'Confirme sua senha',
                             labelStyle: TextStyle(
                               color: Colors.white,
@@ -225,6 +226,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             ),
                           ),
+                          obscureText: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Por favor, insira sua senha novamente';
@@ -263,7 +265,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: const Text('Cadastrar'),
+                          child: const Text('Criar conta'),
                         ),
                       ],
                     ),

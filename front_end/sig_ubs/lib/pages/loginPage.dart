@@ -63,8 +63,8 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 25),
                         TextFormField(
                           controller: _cpfValue,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
+                          style: const TextStyle(color: Colors.white),
+                          decoration: const InputDecoration(
                             labelText: 'Digite seu CPF',
                             labelStyle: TextStyle(
                               color: Colors.white,
@@ -91,8 +91,8 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 25),
                         TextFormField(
                           controller: _passwordValue,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
+                          style: const TextStyle(color: Colors.white),
+                          decoration: const InputDecoration(
                             labelText: 'Digite sua senha',
                             labelStyle: TextStyle(
                               color: Colors.white,

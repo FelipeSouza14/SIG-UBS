@@ -35,14 +35,21 @@ class _HomePageState extends State<HomePage> {
         title: Text(widget.title),
         actions: [
           if (authProvider.user.isNotEmpty)
-            IconButton(
-              icon: Icon(Icons.logout),
-              onPressed: () {
-                authProvider.logout();
-              },
+            Text(
+              '${authProvider.user['username']}',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          if (authProvider.user.isNotEmpty)
-            Text('Bem-vindo, ${authProvider.user['username']}')
+          IconButton(
+            icon: const Icon(Icons.logout),
+            color: Colors.white,
+            onPressed: () {
+              authProvider.logout();
+            },
+          ),
         ],
       ),
       body: const Center(
