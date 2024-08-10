@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sig_ubs/pages/servicesPage.dart';
 import 'context/authProvider.dart';
 import 'pages/loginPage.dart';
 import 'pages/menuPage.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(title: 'Bem-vindo'),
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
+        '/services': (context) => const ServicesPage(),
       },
     );
   }
