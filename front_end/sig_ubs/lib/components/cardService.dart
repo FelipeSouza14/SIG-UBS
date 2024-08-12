@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CardService extends StatefulWidget {
-  const CardService({super.key, required this.serviceType, required this.photo});
+  const CardService(
+      {super.key, required this.serviceType, required this.photo});
 
   final String serviceType;
   final String photo;
@@ -16,7 +17,7 @@ class _CardServiceState extends State<CardService> {
     return Container(
       padding: const EdgeInsets.all(16.0),
       constraints: const BoxConstraints(
-        maxWidth: 360, // Limita a largura do card
+        maxWidth: 400, // Limita a largura do card
         maxHeight: 150,
       ),
       decoration: BoxDecoration(
@@ -38,14 +39,15 @@ class _CardServiceState extends State<CardService> {
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
             ),
-            child: ClipOval(
+            child: ClipRect(
               child: Image.network(
-                widget.photo,  // Usa a variável photo passada para o widget
+                widget.photo,
                 fit: BoxFit.cover,
                 width: 100,
                 height: 100,
                 errorBuilder: (context, error, stackTrace) {
-                  return const Icon(Icons.error);  // Ícone padrão em caso de erro
+                  return const Icon(
+                      Icons.error); // Ícone padrão em caso de erro
                 },
               ),
             ),
@@ -57,14 +59,14 @@ class _CardServiceState extends State<CardService> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  widget.serviceType,  // Usa a variável serviceType passada para o widget
+                  widget.serviceType,
                   style: const TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const Text(
-                  'Descrição do serviço ou conteúdo adicional pode ser colocado aqui.',
+                  'Descrição',
                   style: TextStyle(
                     fontSize: 16.0,
                   ),
@@ -74,6 +76,7 @@ class _CardServiceState extends State<CardService> {
           ),
         ],
       ),
+      // ),
     );
   }
 }
