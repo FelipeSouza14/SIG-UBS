@@ -27,7 +27,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfissionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profissional
-        fields = ['nome', 'especialidade', 'cpf', 'numTelefone', 'horaAtendimento', 'status']
+        fields = ['nome', 'especialidade', 'cpf', 'numTelefone', 'horaAtendimento', 'imagem', 'status']
 
 class VacinacaoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,7 +37,7 @@ class VacinacaoSerializer(serializers.ModelSerializer):
 class ConsultaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Consulta
-        fields = ['id', 'nomePaciente', 'nomeProfissional', 'data', 'horario', 'tipoAtendimento', 'status']
+        fields = ['id', 'idPaciente', 'nomePaciente', 'nomeProfissional', 'data', 'horario', 'tipoAtendimento', 'status']
 
 class AvisosSerializer(serializers.ModelSerializer):
     class Meta:
