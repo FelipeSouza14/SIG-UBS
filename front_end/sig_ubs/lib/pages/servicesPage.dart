@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sig_ubs/components/cardService.dart';
 import 'package:sig_ubs/components/navBar.dart';
+import 'package:sig_ubs/utils.dart';
 
 class ServicesPage extends StatefulWidget {
   const ServicesPage({super.key});
@@ -10,6 +11,7 @@ class ServicesPage extends StatefulWidget {
 }
 
 class _ServicesPageState extends State<ServicesPage> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +30,9 @@ class _ServicesPageState extends State<ServicesPage> {
         ),
       ),
       body: Container(
-        height: MediaQuery.of(context).size.height, // Define a altura como a altura total da tela
+        height: MediaQuery.of(context)
+            .size
+            .height, // Define a altura como a altura total da tela
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -39,20 +43,23 @@ class _ServicesPageState extends State<ServicesPage> {
             ],
           ),
         ),
-        child: const SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      'Escolha o tipo de atendimento:',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Agendar consulta? \nEscolha o tipo de atendimento:',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     SizedBox(height: 20),
@@ -80,12 +87,24 @@ class _ServicesPageState extends State<ServicesPage> {
                   ],
                 ),
               ),
-              
-              // Cards
-              CardService(serviceType: 'Clínico Geral', photo: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.steveglassphotographer.com%2Fprofessional-headshots-atlanta-steve-glass%2Fwaist-up-executive-portrait&psig=AOvVaw1ixHhOOryMW9r-3W6Rk-mh&ust=1723338873285000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCODstd6f6YcDFQAAAAAdAAAAABAD'),
-              // CardService(),
-              // CardService(),
-              // CardService(),
+              Column(
+                children: services.map((service) {
+                  return Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/appointment');
+                        },
+                        child: CardService(
+                          serviceType: service['serviceType']!,
+                          photo: service['photo']!,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  );
+                }).toList(),
+              ),
             ],
           ),
         ),
