@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sig_ubs/pages/appointmentPage.dart';
 import 'package:sig_ubs/pages/servicesPage.dart';
 import 'context/authProvider.dart';
 import 'pages/loginPage.dart';
@@ -20,7 +21,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    var name = authProvider.user['username'];
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -38,17 +38,16 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/services': (context) => const ServicesPage(),
+        '/appointment': (context) => const AppointmentPage(),
       },
     );
   }
 
   Widget _buildHome(AuthProvider authProvider) {
-    if (authProvider.authToken != null && authProvider.authToken.isNotEmpty) {
+    if (authProvider.authToken.isNotEmpty) {
       return const HomePage(title: 'Bem-vindo');
     } else {
       return const MenuPage();
     }
   }
 }
-
-
