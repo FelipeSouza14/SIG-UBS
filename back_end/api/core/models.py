@@ -37,6 +37,7 @@ class Profissional(models.Model):
     cpf = models.CharField(max_length=11, primary_key=True, unique=True)
     numTelefone = models.CharField(max_length=11, unique=True)
     horaAtendimento = models.CharField(max_length=50)
+    imagem = models.CharField(max_length=255)
     status = models.BooleanField(default=True)
 
     def __str__(self):
@@ -53,6 +54,7 @@ class Vacinacao(models.Model):
         return self.nomeVacina
     
 class Consulta(models.Model):
+    idPaciente = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     nomePaciente = models.CharField(max_length=255)
     nomeProfissional = models.CharField(max_length=255)
     data = models.DateField(max_length=15)
