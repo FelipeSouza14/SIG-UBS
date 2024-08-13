@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sig_ubs/components/cardService.dart';
 import 'package:sig_ubs/components/navBar.dart';
+import 'package:sig_ubs/pages/appointmentPage.dart';
 import 'package:sig_ubs/utils.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 class ServicesPage extends StatefulWidget {
   const ServicesPage({super.key});
@@ -11,8 +15,31 @@ class ServicesPage extends StatefulWidget {
 }
 
 class _ServicesPageState extends State<ServicesPage> {
-  
+  List services = [];
+
   @override
+  void initState() {
+    super.initState();
+    fetchServices();
+  }
+
+  Future<void> fetchServices() async {
+    final response = await http.get(
+      Uri.parse('http://127.0.0.1:8000/profissionais/'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        services = jsonDecode(response.body);
+      });
+    } else {
+      throw Exception('Failed to load services');
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -93,11 +120,20 @@ class _ServicesPageState extends State<ServicesPage> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/appointment');
+                          // Navigator.pushNamed(context, '/appointment');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AppointmentPage(
+                                        nome: service["nome"],
+                                        imagem: service["imagem"],
+                                        especialidade: service["especialidade"],
+                                        telefone: service["numTelefone"]
+                                      )));
                         },
                         child: CardService(
-                          serviceType: service['serviceType']!,
-                          photo: service['photo']!,
+                          serviceType: service['especialidade']!,
+                          photo: service['imagem']!,
                         ),
                       ),
                       const SizedBox(height: 20),
