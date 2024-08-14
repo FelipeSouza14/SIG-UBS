@@ -20,9 +20,9 @@ class _MyNewNavBarState extends State<MyNewNavBar> {
       // case 0:
       //   Navigator.pushNamed(context, '/');
       //   break;
-      // case 1:
-      //   Navigator.pushNamed(context, '/vaccination');
-      //   break;
+      case 1:
+        Navigator.pushNamed(context, '/vaccination');
+        break;
       case 2:
         Navigator.pushNamed(context, '/services');
         break;
