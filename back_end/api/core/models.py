@@ -45,7 +45,7 @@ class Profissional(models.Model):
     
 class Vacinacao(models.Model):
     nomeVacina = models.CharField(max_length=105)
-    data = models.DateField(max_length=15)
+    data = models.CharField(max_length=15)
     horario = models.CharField(max_length=15)
     publicoAlvo = models.CharField(max_length=255)
     status = models.BooleanField(default=True)
@@ -57,7 +57,7 @@ class Consulta(models.Model):
     idPaciente = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     nomePaciente = models.CharField(max_length=255)
     nomeProfissional = models.CharField(max_length=255)
-    data = models.DateField(max_length=15)
+    data = models.CharField(max_length=15)
     horario = models.CharField(max_length=15)
     tipoAtendimento = models.CharField(max_length=50)
     status = models.BooleanField(default=True)
@@ -68,7 +68,7 @@ class Consulta(models.Model):
 class Avisos(models.Model): 
     titulo = models.CharField(max_length=255)
     descricao = models.CharField(max_length=255)
-    dataEnvio = models.DateField(max_length=15)
+    dataEnvio = models.CharField(max_length=15)
     status = models.BooleanField(default=True)
 
     def __str__(self):

@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:sig_ubs/components/cardService.dart';
 import 'package:sig_ubs/components/navBar.dart';
+import 'package:sig_ubs/context/authProvider.dart';
+import 'package:sig_ubs/context/registerConsultation.dart';
 import 'package:sig_ubs/utils.dart';
 
 class AppointmentPage extends StatefulWidget {
-  const AppointmentPage({super.key});
+  final String nome, imagem, especialidade, telefone;
+
+  const AppointmentPage(
+      {super.key,
+      required this.nome,
+      required this.imagem,
+      required this.especialidade,
+      required this.telefone});
 
   @override
   State<AppointmentPage> createState() => _AppointmentPageState();
@@ -13,9 +24,15 @@ class AppointmentPage extends StatefulWidget {
 class _AppointmentPageState extends State<AppointmentPage> {
   int? _selectedDayIndex;
   int? _selectedHourIndex;
+  String? _selectedDayNumb;
 
+  Future<List<Map<String, String>>> weekDays = getCurrentWeekDays();
+  final List<String> hours = ['09:00', '10:00', '11:00', '14:00', '15:00']; // Exemplo de lista de horas
+  
   @override
   Widget build(BuildContext context) {
+  final authProvider = Provider.of<AuthProvider>(context, listen: false);
+  String currentMonth = DateFormat.M().format(DateTime.now());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 0, 148, 219),
@@ -32,12 +49,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
         ),
       ),
       body: Container(
-        height: MediaQuery.of(context)
-            .size
-            .height, // Define a altura como a altura total da tela
-        width: MediaQuery.of(context)
-            .size
-            .width, // Define a largura como a largura total da tela
+        height: MediaQuery.of(context).size.height, // Define a altura como a altura total da tela
+        width: MediaQuery.of(context).size.width, // Define a largura como a largura total da tela
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -52,8 +65,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 50.0, vertical: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -69,10 +81,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       ),
                     ),
                     const SizedBox(height: 15),
-                    const CardService(
-                        serviceType: 'Luíz Otávio\nOdontologia',
-                        photo:
-                            'https://cdn.prod.website-files.com/5fd2ba952bcd68835f2c8254/654552808ea12859684a8304_Professional-7.remini-enhanced-p-500.webp'),
+                    CardService(
+                        serviceType: '${widget.nome}\n${widget.especialidade}',
+                        photo: widget.imagem),
                     const SizedBox(height: 30),
                     const Align(
                       alignment: Alignment.centerLeft,
@@ -86,70 +97,84 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       ),
                     ),
                     const SizedBox(height: 15),
-                    Wrap(
-                      spacing: 10.0, // Espaço entre os containers
-                      runSpacing: 10.0, // Espaço entre as linhas
-                      alignment: WrapAlignment.center,
-                      children: List.generate(daysOfWeek.length, (index) {
-                        bool isSelected = _selectedDayIndex == index;
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _selectedDayIndex = index;
-                            });
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(16.0),
-                            constraints: const BoxConstraints(
-                              maxWidth: 60, // Limita a largura do card
-                              maxHeight: 90,
-                            ),
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? const Color.fromARGB(255, 0, 148,
-                                      219)
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(8.0),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 10.0,
-                                  offset: Offset(0, 10),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  daysOfWeek[index],
-                                  style: TextStyle(
+                    FutureBuilder<List<Map<String, String>>>(
+                      future: weekDays,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return const Text('Erro ao carregar dias da semana');
+                        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                          return const Text('Nenhum dia disponível');
+                        } else {
+                          List<Map<String, String>> days = snapshot.data!;
+                          return Wrap(
+                            spacing: 10.0, // Espaço entre os containers
+                            runSpacing: 10.0, // Espaço entre as linhas
+                            alignment: WrapAlignment.center,
+                            children: List.generate(days.length, (index) {
+                              bool isSelected = _selectedDayIndex == index;
+                              final day = days[index];
+                              final dayName = day['dayName'] ?? '';
+                              final dayNumber = day['dayNumber'] ?? '';
+
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _selectedDayIndex = index;
+                                    _selectedDayNumb = dayNumber;
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(16.0),
+                                  constraints: const BoxConstraints(
+                                    maxWidth: 60, // Limita a largura do card
+                                    maxHeight: 90,
+                                  ),
+                                  decoration: BoxDecoration(
                                     color: isSelected
-                                        ? Colors
-                                            .white 
-                                        : const Color.fromARGB(
-                                            255, 0, 148, 219),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
+                                        ? const Color.fromARGB(255, 0, 148, 219)
+                                        : Colors.white,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.black12,
+                                        blurRadius: 10.0,
+                                        offset: Offset(0, 10),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text(
+                                        dayName,
+                                        style: TextStyle(
+                                          color: isSelected
+                                              ? Colors.white
+                                              : const Color.fromARGB(255, 0, 148, 219),
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        dayNumber,
+                                        style: TextStyle(
+                                          color: isSelected
+                                              ? Colors.white
+                                              : const Color.fromARGB(255, 0, 148, 219),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Text(
-                                  numbersOfWeek[index],
-                                  style: TextStyle(
-                                    color: isSelected
-                                        ? Colors
-                                            .white 
-                                        : const Color.fromARGB(
-                                            255, 0, 148, 219),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
+                              );
+                            }),
+                          );
+                        }
+                      },
                     ),
                     const SizedBox(height: 15),
                     const Align(
@@ -184,8 +209,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             ),
                             decoration: BoxDecoration(
                               color: isSelected
-                                  ? const Color.fromARGB(255, 0, 148,
-                                      219) 
+                                  ? const Color.fromARGB(255, 0, 148, 219)
                                   : Colors.white,
                               borderRadius: BorderRadius.circular(8.0),
                               boxShadow: const [
@@ -203,10 +227,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                   hours[index],
                                   style: TextStyle(
                                     color: isSelected
-                                        ? Colors
-                                            .white 
-                                        : const Color.fromARGB(
-                                            255, 0, 148, 219),
+                                        ? Colors.white
+                                        : const Color.fromARGB(255, 0, 148, 219),
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -255,7 +277,40 @@ class _AppointmentPageState extends State<AppointmentPage> {
                               ],
                             ),
                             Text(
-                              'Psicológico',
+                              'Consulta',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 0, 148, 219),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(Icons.person_outlined,
+                                    size: 25.0,
+                                    color: Color.fromARGB(255, 225, 220, 220)),
+                                SizedBox(width: 15),
+                                Text(
+                                  'Nome do Profissional',
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 225, 220, 220),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              'Dr. João Paulo',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 0, 148, 219),
                                 fontSize: 18,
@@ -364,13 +419,28 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             ),
                           ),
                         ),
+                        
                         ElevatedButton(
                           onPressed: () {
-                            // Ação
+                            registerConsultation(
+                                context,
+                                authProvider.user['cpf'],
+                                authProvider.user['username'],
+                                widget.nome,
+                                '${_selectedDayNumb}/${currentMonth}',
+                                '${hours[_selectedHourIndex!]}',
+                                widget.especialidade);
+
+                            // createAccount(
+                            //         context,
+                            //         _nomeValue.text,
+                            //         _cpfValue.text,
+                            //         _telefoneValue.text,
+                            //         _nascimentoValue.text,
+                            //         _senhaValue.text);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 0, 148, 219),
+                            backgroundColor: const Color.fromARGB(255, 0, 148, 219),
                             fixedSize: const Size(190, 40),
                             textStyle: const TextStyle(
                               fontSize: 18,
