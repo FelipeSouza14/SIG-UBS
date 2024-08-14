@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sig_ubs/pages/appointmentPage.dart';
 import 'package:sig_ubs/pages/servicesPage.dart';
+import 'package:sig_ubs/pages/vaccinationPage.dart';
 import 'context/authProvider.dart';
 import 'pages/loginPage.dart';
 import 'pages/menuPage.dart';
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/services': (context) => const ServicesPage(),
-        // '/appointment': (context) => const AppointmentPage(),
+        '/vaccination': (context) => const VaccinationPage()
       },
     );
   }
