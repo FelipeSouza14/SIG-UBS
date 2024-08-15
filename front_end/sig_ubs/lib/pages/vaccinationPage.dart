@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sig_ubs/components/cardVaccination.dart';
-import 'package:sig_ubs/components/navBar.dart';
+import 'package:sig_ubs/utils.dart';
 
 class VaccinationPage extends StatefulWidget {
   const VaccinationPage({super.key});
@@ -10,39 +10,12 @@ class VaccinationPage extends StatefulWidget {
 }
 
 class _VaccinationPageState extends State<VaccinationPage> {
-  final List<Map<String, String>> vaccines = [
-    {
-      'nomeVacina': 'COVID-19',
-      'data': '15/08/2024',
-      'horario': '08:00 às 12:00',
-      'publicoAlvo': 'Adultos'
-    },
-    {
-      'nomeVacina': 'Gripe',
-      'data': '20/08/2024',
-      'horario': '08:00 às 12:00',
-      'publicoAlvo': 'Crianças de 0 à 5 anos'
-    },
-    {
-      'nomeVacina': 'Febre amarela',
-      'data': '22/08/2024',
-      'horario': '08:00 às 12:00',
-      'publicoAlvo': 'Adultos'
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Remove o botão de voltar
         backgroundColor: const Color.fromARGB(255, 0, 148, 219),
-        leading: IconButton(
-          color: Colors.white,
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -75,12 +48,32 @@ class _VaccinationPageState extends State<VaccinationPage> {
                         ),
                       ),
                     ),
+                    TextField(
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        labelText: 'Barra de pesquisa',
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                            width: 2.0,
+                          ),
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 20),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 50.0),
                 child: Column(
                   children: vaccines.map((vaccine) {
                     return Column(
@@ -88,16 +81,11 @@ class _VaccinationPageState extends State<VaccinationPage> {
                         Row(
                           children: [
                             Expanded(
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/appointment');
-                                },
-                                child: CardVaccination(
-                                  nomeVacina: vaccine['nomeVacina']!,
-                                  data: vaccine['data']!,
-                                  horario: vaccine['horario']!,
-                                  publicoAlvo: vaccine['publicoAlvo']!,
-                                ),
+                              child: CardVaccination(
+                                nomeVacina: vaccine['nomeVacina']!,
+                                data: vaccine['data']!,
+                                horario: vaccine['horario']!,
+                                publicoAlvo: vaccine['publicoAlvo']!,
                               ),
                             ),
                           ],
@@ -112,7 +100,6 @@ class _VaccinationPageState extends State<VaccinationPage> {
           ),
         ),
       ),
-      bottomNavigationBar: const MyNewNavBar(),
     );
   }
 }

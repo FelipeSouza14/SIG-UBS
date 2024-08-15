@@ -1,46 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class MyNewNavBar extends StatefulWidget {
-  const MyNewNavBar({super.key});
+class DataService {
+  final ValueNotifier<int> pageIndexNotifier = ValueNotifier<int>(0);
 
-  @override
-  State<MyNewNavBar> createState() => _MyNewNavBarState();
+  void load(int index) {
+    pageIndexNotifier.value = index;
+  }
 }
 
-class _MyNewNavBarState extends State<MyNewNavBar> {
-  int _selectedIndex = 0;
+final dataService = DataService();
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+class NewNavBar extends HookWidget {
+  const NewNavBar({super.key, this.itemSelectedCallback});
 
-    // Navegue para a página correspondente
-    switch (index) {
-      // case 0:
-      //   Navigator.pushNamed(context, '/');
-      //   break;
-      case 1:
-        Navigator.pushNamed(context, '/vaccination');
-        break;
-      case 2:
-        Navigator.pushNamed(context, '/services');
-        break;
-      // case 3:
-      //   Navigator.pushNamed(context, '/alerts');
-      //   break;
-      // case 4:
-      //   Navigator.pushNamed(context, '/config');
-      //   break;
-    }
-  }
+  final void Function(int)? itemSelectedCallback;
 
   @override
   Widget build(BuildContext context) {
+    var state = useState(0);
     return BottomNavigationBar(
       iconSize: 35.0,
-      onTap: _onItemTapped,
-      currentIndex: _selectedIndex,
+      onTap: (index) {
+        state.value = index;
+        itemSelectedCallback?.call(index);
+      },
+      currentIndex: state.value,
       selectedItemColor: const Color.fromARGB(255, 78, 146, 234),
       unselectedItemColor: Colors.grey,
       selectedLabelStyle: const TextStyle(fontSize: 2.0),
@@ -48,46 +33,50 @@ class _MyNewNavBarState extends State<MyNewNavBar> {
       items: [
         BottomNavigationBarItem(
             label: "",
-            icon: _buildItemIcon(Icons.home_outlined, 0),
+            icon: _buildItemIcon(Icons.home_outlined, 0, state),
             backgroundColor: const Color.fromARGB(255, 32, 61, 99)),
         BottomNavigationBarItem(
             label: "",
-            icon: _buildItemIcon(Icons.bloodtype_outlined, 1),
+            icon: _buildItemIcon(Icons.bloodtype_outlined, 1, state),
             backgroundColor: const Color.fromARGB(255, 32, 61, 99)),
         BottomNavigationBarItem(
             label: "",
-            icon: _buildItemIcon(Icons.medical_services_outlined, 2),
+            icon: _buildItemIcon(Icons.medical_services_outlined, 2, state),
             backgroundColor: const Color.fromARGB(255, 32, 61, 99)),
         BottomNavigationBarItem(
             label: "",
-            icon: _buildItemIcon(Icons.notifications_none_outlined, 3),
+            icon: _buildItemIcon(Icons.notifications_none_outlined, 3, state),
             backgroundColor: const Color.fromARGB(255, 32, 61, 99)),
         BottomNavigationBarItem(
             label: "",
-            icon: _buildItemIcon(Icons.settings_outlined, 4),
+            icon: _buildItemIcon(Icons.settings_outlined, 4, state),
             backgroundColor: const Color.fromARGB(255, 32, 61, 99)),
       ],
     );
   }
 
-  //Buttons animation
-  Widget _buildItemIcon(IconData iconData, int index) {
+  //Animação dos botões
+  Widget _buildItemIcon(
+    IconData iconData,
+    int index,
+    ValueNotifier<int> state,
+  ) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 100),
       transform: Matrix4.translationValues(
         0,
-        _selectedIndex == index
+        state.value == index
             ? -15.0
             : 0.0, // Adjust the translation for selected item
         0,
       ),
       decoration: BoxDecoration(
-        color: _selectedIndex == index
+        color: state.value == index
             ? const Color.fromARGB(255, 255, 255, 255)
             : Colors.transparent,
         borderRadius: BorderRadius.circular(50.0),
         border: Border.all(
-          color: _selectedIndex == index
+          color: state.value == index
               ? const Color.fromARGB(255, 32, 61, 99)
               : Colors.transparent,
           width: 5.0,
@@ -96,7 +85,7 @@ class _MyNewNavBarState extends State<MyNewNavBar> {
       padding: const EdgeInsets.all(15.0),
       child: Icon(
         iconData,
-        color: _selectedIndex == index
+        color: state.value == index
             ? const Color.fromARGB(255, 32, 61, 99)
             : Colors.blue,
       ),

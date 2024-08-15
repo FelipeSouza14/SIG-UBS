@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sig_ubs/components/cardService.dart';
-import 'package:sig_ubs/components/navBar.dart';
 import 'package:sig_ubs/pages/appointmentPage.dart';
-import 'package:sig_ubs/utils.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 
 class ServicesPage extends StatefulWidget {
   const ServicesPage({super.key});
@@ -43,18 +40,8 @@ class _ServicesPageState extends State<ServicesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Remove o botão de voltar
         backgroundColor: const Color.fromARGB(255, 0, 148, 219),
-        title: const Text(
-          'Voltar',
-          style: TextStyle(color: Colors.white),
-        ),
-        leading: IconButton(
-          color: Colors.white,
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       body: Container(
         height: MediaQuery.of(context)
@@ -125,11 +112,10 @@ class _ServicesPageState extends State<ServicesPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => AppointmentPage(
-                                        nome: service["nome"],
-                                        imagem: service["imagem"],
-                                        especialidade: service["especialidade"],
-                                        telefone: service["numTelefone"]
-                                      )));
+                                      nome: service["nome"],
+                                      imagem: service["imagem"],
+                                      especialidade: service["especialidade"],
+                                      telefone: service["numTelefone"])));
                         },
                         child: CardService(
                           serviceType: service['especialidade']!,
@@ -145,7 +131,6 @@ class _ServicesPageState extends State<ServicesPage> {
           ),
         ),
       ),
-      bottomNavigationBar: const MyNewNavBar(),
     );
   }
 }
