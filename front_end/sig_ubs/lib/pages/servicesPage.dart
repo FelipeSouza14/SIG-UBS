@@ -40,18 +40,8 @@ class _ServicesPageState extends State<ServicesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Remove o botão de voltar
         backgroundColor: const Color.fromARGB(255, 0, 148, 219),
-        title: const Text(
-          'Voltar',
-          style: TextStyle(color: Colors.white),
-        ),
-        leading: IconButton(
-          color: Colors.white,
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       body: Container(
         height: MediaQuery.of(context)

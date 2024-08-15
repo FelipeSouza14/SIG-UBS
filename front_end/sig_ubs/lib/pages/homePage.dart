@@ -11,6 +11,7 @@ class HomePage extends HookWidget {
     final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false, // Remove o botão de voltar
           backgroundColor: const Color.fromARGB(255, 0, 148, 219),
           title: const Text(
             'Bem-vindo',
