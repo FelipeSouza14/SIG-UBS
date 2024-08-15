@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sig_ubs/components/cardVaccination.dart';
-import 'package:sig_ubs/components/navBar.dart';
+import 'package:sig_ubs/utils.dart';
 
 class VaccinationPage extends StatefulWidget {
   const VaccinationPage({super.key});
@@ -10,26 +10,7 @@ class VaccinationPage extends StatefulWidget {
 }
 
 class _VaccinationPageState extends State<VaccinationPage> {
-  final List<Map<String, String>> vaccines = [
-    {
-      'nomeVacina': 'COVID-19',
-      'data': '15/08/2024',
-      'horario': '08:00 às 12:00',
-      'publicoAlvo': 'Adultos'
-    },
-    {
-      'nomeVacina': 'Gripe',
-      'data': '20/08/2024',
-      'horario': '08:00 às 12:00',
-      'publicoAlvo': 'Crianças de 0 à 5 anos'
-    },
-    {
-      'nomeVacina': 'Febre amarela',
-      'data': '22/08/2024',
-      'horario': '08:00 às 12:00',
-      'publicoAlvo': 'Adultos'
-    },
-  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +93,6 @@ class _VaccinationPageState extends State<VaccinationPage> {
           ),
         ),
       ),
-      bottomNavigationBar: const MyNewNavBar(),
     );
   }
 }

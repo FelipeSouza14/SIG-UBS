@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sig_ubs/components/cardService.dart';
-import 'package:sig_ubs/components/navBar.dart';
 import 'package:sig_ubs/context/authProvider.dart';
 import 'package:sig_ubs/context/registerConsultation.dart';
 import 'package:sig_ubs/utils.dart';
@@ -27,12 +26,18 @@ class _AppointmentPageState extends State<AppointmentPage> {
   String? _selectedDayNumb;
 
   Future<List<Map<String, String>>> weekDays = getCurrentWeekDays();
-  final List<String> hours = ['09:00', '10:00', '11:00', '14:00', '15:00']; // Exemplo de lista de horas
-  
+  final List<String> hours = [
+    '09:00',
+    '10:00',
+    '11:00',
+    '14:00',
+    '15:00'
+  ]; // Exemplo de lista de horas
+
   @override
   Widget build(BuildContext context) {
-  final authProvider = Provider.of<AuthProvider>(context, listen: false);
-  String currentMonth = DateFormat.M().format(DateTime.now());
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    String currentMonth = DateFormat.M().format(DateTime.now());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 0, 148, 219),
@@ -49,8 +54,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
         ),
       ),
       body: Container(
-        height: MediaQuery.of(context).size.height, // Define a altura como a altura total da tela
-        width: MediaQuery.of(context).size.width, // Define a largura como a largura total da tela
+        height: MediaQuery.of(context)
+            .size
+            .height, // Define a altura como a altura total da tela
+        width: MediaQuery.of(context)
+            .size
+            .width, // Define a largura como a largura total da tela
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -65,7 +74,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 50.0, vertical: 20.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -100,11 +110,13 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     FutureBuilder<List<Map<String, String>>>(
                       future: weekDays,
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return const CircularProgressIndicator();
                         } else if (snapshot.hasError) {
                           return const Text('Erro ao carregar dias da semana');
-                        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        } else if (!snapshot.hasData ||
+                            snapshot.data!.isEmpty) {
                           return const Text('Nenhum dia disponível');
                         } else {
                           List<Map<String, String>> days = snapshot.data!;
@@ -145,14 +157,16 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     ],
                                   ),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
                                         dayName,
                                         style: TextStyle(
                                           color: isSelected
                                               ? Colors.white
-                                              : const Color.fromARGB(255, 0, 148, 219),
+                                              : const Color.fromARGB(
+                                                  255, 0, 148, 219),
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -162,7 +176,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                         style: TextStyle(
                                           color: isSelected
                                               ? Colors.white
-                                              : const Color.fromARGB(255, 0, 148, 219),
+                                              : const Color.fromARGB(
+                                                  255, 0, 148, 219),
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -228,7 +243,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                   style: TextStyle(
                                     color: isSelected
                                         ? Colors.white
-                                        : const Color.fromARGB(255, 0, 148, 219),
+                                        : const Color.fromARGB(
+                                            255, 0, 148, 219),
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -419,7 +435,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             ),
                           ),
                         ),
-                        
                         ElevatedButton(
                           onPressed: () {
                             registerConsultation(
@@ -427,20 +442,13 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                 authProvider.user['cpf'],
                                 authProvider.user['username'],
                                 widget.nome,
-                                '${_selectedDayNumb}/${currentMonth}',
-                                '${hours[_selectedHourIndex!]}',
+                                '$_selectedDayNumb/${currentMonth}',
+                                hours[_selectedHourIndex!],
                                 widget.especialidade);
-
-                            // createAccount(
-                            //         context,
-                            //         _nomeValue.text,
-                            //         _cpfValue.text,
-                            //         _telefoneValue.text,
-                            //         _nascimentoValue.text,
-                            //         _senhaValue.text);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 0, 148, 219),
+                            backgroundColor:
+                                const Color.fromARGB(255, 0, 148, 219),
                             fixedSize: const Size(190, 40),
                             textStyle: const TextStyle(
                               fontSize: 18,
@@ -468,7 +476,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
           ),
         ),
       ),
-      bottomNavigationBar: const MyNewNavBar(),
     );
   }
 }

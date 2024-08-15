@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sig_ubs/components/cardService.dart';
-import 'package:sig_ubs/components/navBar.dart';
 import 'package:sig_ubs/pages/appointmentPage.dart';
-import 'package:sig_ubs/utils.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 
 class ServicesPage extends StatefulWidget {
   const ServicesPage({super.key});
@@ -125,11 +122,10 @@ class _ServicesPageState extends State<ServicesPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => AppointmentPage(
-                                        nome: service["nome"],
-                                        imagem: service["imagem"],
-                                        especialidade: service["especialidade"],
-                                        telefone: service["numTelefone"]
-                                      )));
+                                      nome: service["nome"],
+                                      imagem: service["imagem"],
+                                      especialidade: service["especialidade"],
+                                      telefone: service["numTelefone"])));
                         },
                         child: CardService(
                           serviceType: service['especialidade']!,
@@ -145,7 +141,6 @@ class _ServicesPageState extends State<ServicesPage> {
           ),
         ),
       ),
-      bottomNavigationBar: const MyNewNavBar(),
     );
   }
 }
