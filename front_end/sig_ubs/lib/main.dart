@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sig_ubs/pages/servicesPage.dart';
-import 'package:sig_ubs/pages/vaccinationPage.dart';
+import 'package:sig_ubs/pages/navScreen.dart';
 import 'context/authProvider.dart';
 import 'pages/loginPage.dart';
 import 'pages/menuPage.dart';
 import 'pages/registerPage.dart';
-import 'pages/homePage.dart';
 
 void main() => runApp(
       ChangeNotifierProvider(
@@ -34,18 +32,16 @@ class MyApp extends StatelessWidget {
       home: _buildHome(authProvider),
       routes: {
         '/menu': (context) => const MenuPage(),
-        '/home': (context) => const HomePage(title: 'Bem-vindo'),
+        '/home': (context) => const NavScreen(),
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
-        '/services': (context) => const ServicesPage(),
-        '/vaccination': (context) => const VaccinationPage()
       },
     );
   }
 
   Widget _buildHome(AuthProvider authProvider) {
     if (authProvider.authToken.isNotEmpty) {
-      return const HomePage(title: 'Bem-vindo');
+      return const NavScreen();
     } else {
       return const MenuPage();
     }
