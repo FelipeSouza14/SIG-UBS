@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sig_ubs/components/navBar.dart';
+import 'package:sig_ubs/pages/alertsPage.dart';
+import 'package:sig_ubs/pages/configPage.dart';
 import 'package:sig_ubs/pages/homePage.dart';
 import 'package:sig_ubs/pages/servicesPage.dart';
 import 'package:sig_ubs/pages/vaccinationPage.dart';
@@ -36,6 +38,8 @@ class NavScreen extends HookWidget {
           HomePage(),
           VaccinationPage(),
           ServicesPage(),
+          AlertsPage(),
+          ConfigPage(),
         ],
       ),
       bottomNavigationBar: NewNavBar(itemSelectedCallback: dataService.load),
