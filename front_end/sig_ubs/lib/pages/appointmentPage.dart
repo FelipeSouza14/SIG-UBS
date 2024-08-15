@@ -268,13 +268,13 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       ),
                     ),
                     const SizedBox(height: 15),
-                    const Column(
+                    Column(
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -293,8 +293,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                               ],
                             ),
                             Text(
-                              'Consulta',
-                              style: TextStyle(
+                              widget.especialidade,
+                              style: const TextStyle(
                                 color: Color.fromARGB(255, 0, 148, 219),
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -302,12 +302,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             )
                           ],
                         ),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -326,8 +326,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                               ],
                             ),
                             Text(
-                              'Dr. João Paulo',
-                              style: TextStyle(
+                              widget.nome,
+                              style: const TextStyle(
                                 color: Color.fromARGB(255, 0, 148, 219),
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -335,12 +335,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             )
                           ],
                         ),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -359,8 +359,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
                               ],
                             ),
                             Text(
-                              '12/08',
-                              style: TextStyle(
+                              _selectedDayNumb != null
+                                  ? '$_selectedDayNumb/$currentMonth'
+                                  : 'dd/mm',
+                              style: const TextStyle(
                                 color: Color.fromARGB(255, 0, 148, 219),
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -368,12 +370,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             )
                           ],
                         ),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -392,8 +394,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
                               ],
                             ),
                             Text(
-                              '09:00',
-                              style: TextStyle(
+                              _selectedHourIndex != null
+                                  ? hours[_selectedHourIndex!]
+                                  : '--:--',
+                              style: const TextStyle(
                                 color: Color.fromARGB(255, 0, 148, 219),
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -442,7 +446,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                 authProvider.user['cpf'],
                                 authProvider.user['username'],
                                 widget.nome,
-                                '$_selectedDayNumb/${currentMonth}',
+                                '$_selectedDayNumb/$currentMonth',
                                 hours[_selectedHourIndex!],
                                 widget.especialidade);
                           },
