@@ -1,4 +1,4 @@
-<h1 align="center"> Sistema de Gestão para Unidades Básicas de Saúde :hospital:	</h1>
+<h1 align="center"> Sistema de Gestão para Unidades Básicas de Saúde 	</h1>
 
 ## Sobre o projeto </br>
 
