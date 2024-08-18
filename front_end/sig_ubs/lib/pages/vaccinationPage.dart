@@ -48,26 +48,26 @@ class _VaccinationPageState extends State<VaccinationPage> {
                         ),
                       ),
                     ),
-                    TextField(
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        labelText: 'Barra de pesquisa',
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                            width: 2.0,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // TextField(
+                    //   style: TextStyle(color: Colors.white),
+                    //   decoration: InputDecoration(
+                    //     labelText: 'Barra de pesquisa',
+                    //     labelStyle: TextStyle(
+                    //       color: Colors.white,
+                    //     ),
+                    //     enabledBorder: UnderlineInputBorder(
+                    //       borderSide: BorderSide(
+                    //         color: Colors.white,
+                    //       ),
+                    //     ),
+                    //     focusedBorder: UnderlineInputBorder(
+                    //       borderSide: BorderSide(
+                    //         color: Colors.white,
+                    //         width: 2.0,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(height: 20),
                   ],
                 ),
