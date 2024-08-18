@@ -10,7 +10,7 @@
 > * Painel de avisos (horários que os médicos e dentistas estão presentes, além das tabelas de vacinação naquele período)
 > * Processo de autenticação do usuário
 
-## Funcionalidades para a população:
+## Funcionalidades para a administração da UBS:
 > * Registrar avisos
 > * Registrar horários de atendimento
 > * Aceitar/Recusar solicitação de atendimento
