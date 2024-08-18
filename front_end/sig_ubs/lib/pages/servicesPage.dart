@@ -13,11 +13,14 @@ class ServicesPage extends StatefulWidget {
 
 class _ServicesPageState extends State<ServicesPage> {
   List services = [];
+  List filteredServices = [];
+  TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     fetchServices();
+    searchController.addListener(_filterServices);
   }
 
   Future<void> fetchServices() async {
@@ -31,22 +34,38 @@ class _ServicesPageState extends State<ServicesPage> {
     if (response.statusCode == 200) {
       setState(() {
         services = jsonDecode(response.body);
+        filteredServices = services; // Inicialmente, exibir todos os serviços
       });
     } else {
       throw Exception('Failed to load services');
     }
   }
 
+  void _filterServices() {
+    String query = searchController.text.toLowerCase();
+    setState(() {
+      filteredServices = services
+          .where((service) =>
+              service['especialidade'].toLowerCase().contains(query))
+          .toList();
+    });
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Remove o botão de voltar
+        automaticallyImplyLeading: false,
         backgroundColor: const Color.fromARGB(255, 0, 148, 219),
       ),
       body: Container(
-        height: MediaQuery.of(context)
-            .size
-            .height, // Define a altura como a altura total da tela
+        height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -60,7 +79,7 @@ class _ServicesPageState extends State<ServicesPage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -78,6 +97,7 @@ class _ServicesPageState extends State<ServicesPage> {
                     ),
                     SizedBox(height: 20),
                     TextField(
+                      controller: searchController,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         labelText: 'Barra de pesquisa',
@@ -102,12 +122,11 @@ class _ServicesPageState extends State<ServicesPage> {
                 ),
               ),
               Column(
-                children: services.map((service) {
+                children: filteredServices.map((service) {
                   return Column(
                     children: [
                       InkWell(
                         onTap: () {
-                          // Navigator.pushNamed(context, '/appointment');
                           Navigator.push(
                               context,
                               MaterialPageRoute(
