@@ -2,7 +2,7 @@
 
 ## Sobre o projeto </br>
 
-<p>O Sistema de Gestão para Unidades Básicas de Saúde, em desenvolvimento possui o objetivo de auxiliar a população e as pessoas do posto no controle dos atendimentos e das informações. Sendo para dois usuários, a população e o pessoal do posto de saúde (a administração do postinho).</p>
+<p>O projeto do Sistema de Gestão para Unidades Básicas de Saúde que está em desenvolvimento, possui o objetivo de auxiliar a população e as pessoas do posto no controle dos atendimentos e das informações. Sendo para dois usuários, a população e o pessoal do posto de saúde (a administração do postinho).</p>
 
 ## Funcionalidades para a população:
 > * Horários de atendimento
