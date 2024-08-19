@@ -21,21 +21,18 @@ class HomePage extends HookWidget {
           ),
           actions: [
             if (authProvider.user.isNotEmpty)
-              Text(
-                '${authProvider.user['username']}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.all(
+                    18.0), // Adiciona padding de 8 pixels em todas as direções
+                child: Text(
+                  'Olá! ${authProvider.user['username']}',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            IconButton(
-              icon: const Icon(Icons.logout),
-              color: Colors.white,
-              onPressed: () {
-                authProvider.logout();
-              },
-            ),
           ],
         ),
         body: const Center(

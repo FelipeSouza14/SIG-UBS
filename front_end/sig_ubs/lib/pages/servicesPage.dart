@@ -100,7 +100,7 @@ class _ServicesPageState extends State<ServicesPage> {
                       controller: searchController,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        labelText: 'Barra de pesquisa',
+                        labelText: 'Digite qual atendimento deseja',
                         labelStyle: TextStyle(
                           color: Colors.white,
                         ),
