@@ -26,41 +26,39 @@ class ConfigPage extends StatelessWidget {
             ),
             child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Padding(
-                    padding:
-                        const EdgeInsets.all(16.0), // Padding ao redor do botão
-                    child: ElevatedButton(
-                        onPressed: () {
-                          authProvider.logout();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white, // Fundo branco
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(15), // Borda arredondada
-                          ),
+                  ElevatedButton(
+                      onPressed: () {
+                        authProvider.logout();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        fixedSize: const Size(350, 60),
+                        textStyle: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Sair da Conta',
-                              style: TextStyle(
-                                color: const Color.fromARGB(
-                                    255, 32, 61, 99), // Cor do texto
-                              ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Sair da Conta',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 32, 61, 99),
                             ),
-                            const SizedBox(
-                                width: 30), // Espaço entre o texto e o ícone
-                            Icon(
-                              Icons.logout,
-                              color: const Color.fromARGB(255, 32, 61, 99),
-                            ),
-                          ],
-                        )),
-                  )
+                          ),
+                          SizedBox(width: 30),
+                          Icon(
+                            Icons.logout,
+                            color: Color.fromARGB(255, 32, 61, 99),
+                          ),
+                        ],
+                      )),
                 ],
               ),
             )));
