@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sig_ubs/components/cardVaccination.dart';
-import 'package:sig_ubs/utils.dart';
+// import 'package:sig_ubs/utils.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class VaccinationPage extends StatefulWidget {
   const VaccinationPage({super.key});
@@ -10,6 +12,51 @@ class VaccinationPage extends StatefulWidget {
 }
 
 class _VaccinationPageState extends State<VaccinationPage> {
+  List vaccines = [];
+  List filteredVaccines = [];
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchVaccines();
+    searchController.addListener(_filterVaccines);
+  }
+
+  Future<void> fetchVaccines() async {
+    final response = await http.get(
+      Uri.parse('http://127.0.0.1:8000/vacinacao/'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        vaccines = jsonDecode(response.body);
+        filteredVaccines = vaccines; // Inicialmente, exibir todos os serviços
+      });
+    } else {
+      throw Exception('Failed to load services');
+    }
+  }
+
+  void _filterVaccines() {
+    String query = searchController.text.toLowerCase();
+    setState(() {
+      filteredVaccines = vaccines
+          .where(
+              (vaccine) => vaccine['nomeVacina'].toLowerCase().contains(query))
+          .toList();
+    });
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +79,7 @@ class _VaccinationPageState extends State<VaccinationPage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -48,26 +95,27 @@ class _VaccinationPageState extends State<VaccinationPage> {
                         ),
                       ),
                     ),
-                    // TextField(
-                    //   style: TextStyle(color: Colors.white),
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Barra de pesquisa',
-                    //     labelStyle: TextStyle(
-                    //       color: Colors.white,
-                    //     ),
-                    //     enabledBorder: UnderlineInputBorder(
-                    //       borderSide: BorderSide(
-                    //         color: Colors.white,
-                    //       ),
-                    //     ),
-                    //     focusedBorder: UnderlineInputBorder(
-                    //       borderSide: BorderSide(
-                    //         color: Colors.white,
-                    //         width: 2.0,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+                    TextField(
+                      controller: searchController,
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        labelText: 'Digite o nome da vacina',
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                            width: 2.0,
+                          ),
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 20),
                   ],
                 ),
@@ -75,7 +123,7 @@ class _VaccinationPageState extends State<VaccinationPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50.0),
                 child: Column(
-                  children: vaccines.map((vaccine) {
+                  children: filteredVaccines.map((vaccine) {
                     return Column(
                       children: [
                         Row(
