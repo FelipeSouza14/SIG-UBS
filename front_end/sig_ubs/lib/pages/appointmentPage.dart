@@ -100,7 +100,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       child: Text(
                         'O melhor dia para você é:',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
@@ -197,7 +197,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       child: Text(
                         'O melhor horário para você é:',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
@@ -261,7 +261,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       child: Text(
                         'Resumo do Agendamento',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),

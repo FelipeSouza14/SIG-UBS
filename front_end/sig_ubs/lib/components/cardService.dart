@@ -65,12 +65,12 @@ class _CardServiceState extends State<CardService> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const Text(
-                  'Descrição',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                  ),
-                ),
+                // const Text(
+                //   'Descrição',
+                //   style: TextStyle(
+                //     fontSize: 16.0,
+                //   ),
+                // ),
               ],
             ),
           ),
