@@ -311,39 +311,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(Icons.person_outlined,
-                                    size: 25.0,
-                                    color: Color.fromARGB(255, 225, 220, 220)),
-                                SizedBox(width: 15),
-                                Text(
-                                  'Nome do Profissional',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 225, 220, 220),
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              widget.nome,
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 0, 148, 219),
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
                                 Icon(Icons.date_range_outlined,
                                     size: 25.0,
                                     color: Color.fromARGB(255, 225, 220, 220)),
@@ -413,7 +380,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            // Ação
+                            // AÇÃO
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
