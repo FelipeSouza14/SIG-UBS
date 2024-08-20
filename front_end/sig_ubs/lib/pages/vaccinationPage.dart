@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sig_ubs/components/cardVaccination.dart';
-// import 'package:sig_ubs/utils.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

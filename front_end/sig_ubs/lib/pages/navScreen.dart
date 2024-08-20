@@ -34,7 +34,7 @@ class NavScreen extends HookWidget {
     return Scaffold(
       body: IndexedStack(
         index: pageIndex,
-        children: const [
+        children: [
           HomePage(),
           VaccinationPage(),
           ServicesPage(),

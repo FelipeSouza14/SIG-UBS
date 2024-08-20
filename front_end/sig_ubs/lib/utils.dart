@@ -1,24 +1,3 @@
-  // final List<Map<String, String>> vaccines = [
-  //   {
-  //     'nomeVacina': 'COVID-19',
-  //     'data': '15/08/2024',
-  //     'horario': '08:00 às 12:00',
-  //     'publicoAlvo': 'Adultos'
-  //   },
-  //   {
-  //     'nomeVacina': 'Gripe',
-  //     'data': '20/08/2024',
-  //     'horario': '08:00 às 12:00',
-  //     'publicoAlvo': 'Crianças de 0 à 5 anos'
-  //   },
-  //   {
-  //     'nomeVacina': 'Febre amarela',
-  //     'data': '22/08/2024',
-  //     'horario': '08:00 às 12:00',
-  //     'publicoAlvo': 'Adultos'
-  //   },
-  // ];
-
 final List<String> hours = [
   '09:00',
   '10:00',
@@ -26,15 +5,6 @@ final List<String> hours = [
   '14:00',
   '15:00'
 ]; // Exemplo de lista de horas
-
-final List<String> numbersOfWeek = [
-  '12',
-  '13',
-  '14',
-  '15',
-  '16',
-  '17',
-];
 
 // Pega a data dos dias da semana atual
 Future<List<Map<String, String>>> getCurrentWeekDays() async {
